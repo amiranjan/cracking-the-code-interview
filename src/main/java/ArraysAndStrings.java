@@ -259,7 +259,7 @@ public class ArraysAndStrings {
 		   for (int i = 0; i < n/2 ; i++){
 			   int first = i;
 			   int last = n - 1 - i;
-			   for (int j = i; j < matrix[i].length; j++) {
+			   for (int j = first; j < last; j++) {
 				   int offset = j - first;
 				   
 				   int top = matrix[first][j];
@@ -274,7 +274,7 @@ public class ArraysAndStrings {
 				   matrix[last][last - offset] = matrix[i][last];
 				   
 				   // top -> right
-				   matrix[i][last] = top;
+				   matrix[j][last] = top;
 			   }
 		   }
 		   return matrix;
