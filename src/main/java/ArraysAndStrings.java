@@ -271,7 +271,7 @@ public class ArraysAndStrings {
 				   matrix[last - offset][first] = matrix[last][last - offset];
 				   
 				   // right -> bottom
-				   matrix[last][last - offset] = matrix[i][last];
+				   matrix[last][last - offset] = matrix[j][last];
 				   
 				   // top -> right
 				   matrix[j][last] = top;
