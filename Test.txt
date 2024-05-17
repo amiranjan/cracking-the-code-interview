@@ -1,0 +1,89 @@
+//https://api.codesignalcontent.com/stockPrices/api/getPrices?date=20220103
+//The date for which the currency stock quoted are being requested in YYYYMMDD format
+
+//Assuming that the current date is 31012022, extract the data from 01012022 to 31012022 using the APIs provided.
+
+//The data quality issues generally revolve around missing quotes for certain days. For dates where #the stock price is missing, use the most recent valid price at that given point in time.
+
+import java.io.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import java.net.*;
+import java.net.http.HttpResponse.BodyHandlers;
+import java.util.*;
+
+// Main class should be named 'Solution' and should not be public.
+class Solution {
+
+    private static class StockPrice {
+       Integer date;
+       // SPY -->
+       //"VOO": --> 439.25
+       Map<String, Double> prices;
+       public StockPrice(Integer date, Map<String, Double> prices) {
+           this.date = date;
+           this.prices = prices;
+       }
+    /*"date": "20220103",
+    "prices": {
+        "SPY": "",
+        "VOO": 439.25,
+        "IVV": 479.84,
+        "FTSE": 676,
+        "MCHI": ""
+    }*/
+    }
+    public static void main(String[] args) throws Exception {
+
+        var client = java.net.http.HttpClient.newHttpClient();
+
+        // Step 2: Create a request
+        var request = java.net.http.HttpRequest.newBuilder(URI.create("https://api.codesignalcontent.com/stockPrices/api/getPrices?date=20220103"))
+        .header("accept", "application/json").build();
+
+// Step 3: Now use the client to send the request
+
+//var response = client.send(request, BodyHandlers.);
+//System.out.println(response);
+
+
+        //List<Interger> dates = List(20220101, 20220102, 20220103, 20220104, 20220105);
+        List<Integer> dates = new ArrayList<>();
+        dates.add(20220101);
+        Map<Integer, StockPrice> stockPriceMap = new HashMap<>();
+        for (Integer date: dates) {
+            // Http clall to retrive prices
+            Map<String, Double> priceMap = new HashMap<>();
+            priceMap.put("SPY", null);
+            priceMap.put("VOO", 439.25);
+            priceMap.put("IVV", 479.84);
+            priceMap.put("FTSE", 676.0);
+            priceMap.put("MCHI", null);
+
+            StockPrice stockPrice = new StockPrice(date, priceMap);
+
+            stockPriceMap.put(date, stockPrice);
+        }
+        // Http clall to retrive prices
+        Map<String, Double> priceMap = new HashMap<>();
+        priceMap.put("SPY", 567.54);
+        priceMap.put("VOO", 439.25);
+        priceMap.put("IVV", 479.84);
+        priceMap.put("FTSE", 676.9);
+        priceMap.put("MCHI", 345.8);
+
+        StockPrice stockPrice = new StockPrice(20220102, priceMap);
+
+        stockPriceMap.put(20220102, stockPrice);
+
+        for (Map.Entry<Integer, Map<Integer, StockPrice>> entry : stockPriceMap.entries()) {
+            for (Map.Entry<Integer, StockPrice> stockEntry : entry.value) {
+                if (stockEntry.value.price == null)
+                    stockPriceMap.put(company, stockPriceMap.get(date + 1).prices.get(company));
+            }
+
+        }
+
+        System.out.println(stockPriceMap);
+    }
+}

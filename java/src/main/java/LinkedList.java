@@ -247,7 +247,7 @@ public class LinkedList {
 			fastRunner = fastRunner.next.next;
 			if (slowRunner == fastRunner)
 				break;
-		}
+		 }
 
 		if (fastRunner == null || slowRunner == null)
 			return null;
